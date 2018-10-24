@@ -33,5 +33,5 @@ dependencies {
  */
 
 classes.doLast {
-        file('build/resources/main/greeting.txt').text = buildVersion
+        file('build/resources/main/greeting.txt').text = "Ver. = " + buildVersion
 }
