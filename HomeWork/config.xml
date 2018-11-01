@@ -1,0 +1,39 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/SergeyKvyatkovsky/DevOps_Training.git</url>
+        <credentialsId>637dcd76-0c3a-4df7-bcef-93e659af507f</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/ModulFive</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>dotnet publish samples/MusicStore/MusicStore.csproj /p:Configuration=Release /p:VersionPrefix=1.0.%BUILD_NUMBER% --runtime=win81-x64 --framework=netcoreapp2.0 --output=octo\release&#xd;
+&quot;C:\Tools\Octo\Octo.exe&quot; pack --id musicstore --version 1.0.%BUILD_NUMBER% --basePath samples\Musicstore\octo\release\ --format=zip --outFolder=octo&#xd;
+&quot;C:\Tools\Octo\Octo.exe&quot; push --package octo\musicStore.1.0.%BUILD_NUMBER%.zip --replace-existing --server http://localhost/octopus/api/packages/raw --apiKey API-U9AFN86WGGPSL4C0S6COJDAGATW</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
