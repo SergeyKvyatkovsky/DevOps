@@ -1,0 +1,36 @@
+{
+  "IamFleetRole": "arn:aws:iam::523687950990:role/aws-ec2-spot-fleet-tagging-role",
+  "AllocationStrategy": "lowestPrice",
+  "TargetCapacity": 1,
+  "ValidFrom": "2018-12-11T15:30:05Z",
+  "ValidUntil": "2019-12-11T15:30:05Z",
+  "TerminateInstancesWithExpiration": true,
+  "LaunchSpecifications": [],
+  "Type": "request",
+  "LaunchTemplateConfigs": [
+    {
+      "LaunchTemplateSpecification": {
+        "LaunchTemplateId": "lt-015067eaa901541be",
+        "Version": "1"
+      },
+      "Overrides": [
+        {
+          "InstanceType": "t2.micro",
+          "WeightedCapacity": 1,
+          "SubnetId": "subnet-5f157425"
+        },
+        {
+          "InstanceType": "t2.micro",
+          "WeightedCapacity": 1,
+          "SubnetId": "subnet-fe684396"
+        },
+        {
+          "InstanceType": "t2.micro",
+          "WeightedCapacity": 1,
+          "SubnetId": "subnet-ef4188a3"
+        }
+      ]
+    }
+  ],
+  "InstancePoolsToUseCount": 11
+}
