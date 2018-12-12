@@ -2,7 +2,7 @@
   "name": "environment",
   "description": "",
   "cookbook_versions": {
-    "admintools": "= 1.0.4",
+    "admintools": "= 1.0.5",
     "docker": ">= 1.0.0"
   },
   "json_class": "Chef::Environment",
