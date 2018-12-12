@@ -1,0 +1,16 @@
+{
+  "name": "environment",
+  "description": "",
+  "cookbook_versions": {
+    "admintools": "= 1.0.0",
+    "docker": ">= 1.0.0"
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  }
+}

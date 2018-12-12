@@ -1,0 +1,1 @@
+return "curl http://192.168.99.100:5000/v2/gradleSample/tags/list".execute().text.tokenize('\n').tokenize(':')
