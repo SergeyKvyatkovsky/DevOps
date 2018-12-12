@@ -6,7 +6,25 @@
   "ValidUntil": "2019-12-11T15:30:05Z",
   "TerminateInstancesWithExpiration": true,
   "LaunchSpecifications": [],
-  "Type": "request",
+  "Type": "AWS::EC2::Instance",
+  "Properties" : {
+      "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -xe\n",
+                                "yum install -y httpd\n",
+                                "sudo systemctl start httpd\n",
+                                "sudo systemctl enable httpd\n",
+                                "sudo chmod 777 /var/www/html/index.html\n",
+                                "echo '<html><h1>page created by Sergey Kviatkovsky</html></h1>' > /var/www/html/index.html\n"
+                            ]
+                        ]
+                    }
+                }
+   },
+  
   "LaunchTemplateConfigs": [
     {
       "LaunchTemplateSpecification": {
