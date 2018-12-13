@@ -29,33 +29,103 @@ node('Chef') {
 	}
 
 	stage('UpdateVersion') {
-		sh 'echo "name \'admintools\'" > ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "maintainer \'The Authors\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "maintainer_email \'you@example.com\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "description \'Installs/Configures admintools\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "long_description \'Installs/Configures admintools\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "version \'0.1.${versionGlobal}\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
-		sh 'echo "chef_version \'>= 12.1\' if respond_to?(:chef_version)" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
+		script{
 
-		sh 'echo "default[\'docker\'][\'subnet\']=\'192.168.99\'" > ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/attributes/default.rb'
-		sh 'echo "default[\'docker\'][\'portOne\']=\'8080\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/attributes/default.rb'
-		sh 'echo "default[\'docker\'][\'portTwo\']=\'8081\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/attributes/default.rb'
-		sh 'echo "default[\'docker\'][\'tag\'] = \'1.0.${versionGlobal}\'" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/attributes/default.rb'
+			def multiline = readFile encoding: 'UTF-8', file: '${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/metadata.rb'
+			def splitOne
+			def oldVersion
+			def splitTwo
+			def iti
+			def txtFileInfo = []
+			def directory = '${env.WORKSPACE}'
+			def folderName = '/DevOps_Training-ModulTen/cookbooks/admintools/'
+			def c
 
-		sh 'echo "{" >> ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"name\": \"testenv\"," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"description\": \"\"," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"cookbook_versions\": {" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"admintools": \"= 1.0.${versionGlobal}\",\" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"docker\": \">= 1.0.0\"" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "}," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"json_class\": \"Chef::Environment\"," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"chef_type\": \"environment\"," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo " \"default_attributes\": {" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "}," > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "\"override_attributes\": {" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "}" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
-		sh 'echo "}" > ${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
+			multiline.eachLine {
+				if (it =~ /version/) {
+					println it  // Output: Groovy
+					iti = it
+					splitOne = it.split("version 0.1.")
+					splitTwo = splitOne[1].split(" ")
+					String r = splitTwo[0]
+					oldVersion = splitTwo[0]
+					println oldVersion
+				}
+			} 
+			println oldVersion
+			String gg = oldVersion
+			def writeInFile = iti.replaceAll("1.0." + gg,${versionGlobal})
+			println writeInFile
+			txtFileInfo << writeInFile
+			println txtFileInfo
+			c = createFolder(directory,folderName)
+			writeToFile(c, "metadata", ".rb", txtFileInfo)
+		}
+		script{
+
+			def multiline = readFile encoding: 'UTF-8', file: '${env.WORKSPACE}/DevOps_Training-ModulTen/cookbooks/admintools/attributes/default.rb'
+			def splitOne
+			def oldVersion
+			def splitTwo
+			def iti
+			def txtFileInfo = []
+			def directory = '${env.WORKSPACE}'
+			def folderName = '/DevOps_Training-ModulTen/cookbooks/admintools/attributes/'
+			def c
+
+			multiline.eachLine {
+				if (it =~ /default[\'docker\'][\'tag\'] = \'1.0./) {
+					println it  // Output: Groovy
+					iti = it
+					splitOne = it.split("default[\'docker\'][\'tag\'] = \'1.0.")
+					splitTwo = splitOne[1].split("\'")
+					String r = splitTwo[0]
+					oldVersion = splitTwo[0]
+					println oldVersion
+				}
+			} 
+			println oldVersion
+			String gg = oldVersion
+			def writeInFile = iti.replaceAll("1.0." + gg,${versionGlobal})
+			println writeInFile
+			txtFileInfo << writeInFile
+			println txtFileInfo
+			c = createFolder(directory,folderName)
+			writeToFile(c, "default", ".rb", txtFileInfo)
+		}
+		
+		script{
+
+			def multiline = readFile encoding: 'UTF-8', file: '${env.WORKSPACE}/DevOps_Training-ModulTen/environments/ENVIRONMENT.json'
+			def splitOne
+			def oldVersion
+			def splitTwo
+			def iti
+			def txtFileInfo = []
+			def directory = '${env.WORKSPACE}'
+			def folderName = '/DevOps_Training-ModulTen/environments/'
+			def c
+
+			multiline.eachLine {
+				if (it =~ /\"admintools\": \"/) {
+					println it  // Output: Groovy
+					iti = it
+					splitOne = it.split("\"admintools\": \"")
+					splitTwo = splitOne[1].split("\"")
+					String r = splitTwo[0]
+					oldVersion = splitTwo[0]
+					println oldVersion
+				}
+			} 
+			println oldVersion
+			String gg = oldVersion
+			def writeInFile = iti.replaceAll("1.0." + gg,${versionGlobal})
+			println writeInFile
+			txtFileInfo << writeInFile
+			println txtFileInfo
+			c = createFolder(directory,folderName)
+			writeToFile(c, "default", ".rb", txtFileInfo)
+		}
 
 	}
 	stage('ChefDeploy') {
