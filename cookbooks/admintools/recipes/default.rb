@@ -69,20 +69,14 @@ case (code <=> codeTwo)
     execute 'upCon' do
       puts -1
       command "cd ~"
-      command "docker build -t tomcatwithapp ."
       command "docker run --name tomcatwithappez -d -p 8080:8080 tomcatwithapp"
       command "docker stop tomcatwithappeo"
       command "docker rm tomcatwithappeo"
     end
 
-    docker_image "192.168.99.100:5000/gradleSample" do
-      tag "1.4.56.82"
-      action :pull
-    end
-
     docker_container "tomcatwithappez" do
-      repo "192.168.99.100:5000/gradleSample}"
-      tag "1.4.56.82"
+      repo "192.168.99.100:5000/gradleSample/"
+      tag "#{node['docker']['tag']}"
       port "8080:8080"
       action :redeploy
     end
@@ -91,16 +85,11 @@ case (code <=> codeTwo)
     execute 'upCont' do
       puts 1
       command "cd ~"
-      command "docker build -t tomcatwithapp ."
       command "docker run --name tomcatwithappeo -d -p 8081:8080 tomcatwithapp"
       command "docker stop tomcatwithappez"
       command "docker rm tomcatwithappez" 
     end
 
-    docker_image "192.168.99.100:5000/gradleSample" do
-      tag "#{node['docker']['tag']}"
-      action :pull
-    end
     docker_container "tomcatwithappeo" do
       repo "192.168.99.100:5000/gradleSample"
       tag "#{node['docker']['tag']}"
@@ -108,22 +97,22 @@ case (code <=> codeTwo)
       action :redeploy
     end
 
-
-
  when 0
     execute 'whenZero' do
       puts 0
-      command "docker built -t tomcatwithapp ."
       command "docker run --name tomcatwuthappez -d -p 8080:8080 tomcatwithapp"
     end
-    docker_image "192.168.99.100:5000/gradleSample" do
-      tag "#{node['docker']['tag']}"
-      action :pull
-    end
+
     docker_container "tomcatwithappez" do
       repo "192.168.99.100:5000/gradleSample"
       tag "#{node['docker']['tag']}"
       port "8080:8080"
       action :redeploy
     end
+end
+
+
+docker_image "192.168.99.100:5000/gradleSample" do
+  tag "#{node['docker']['tag']}"
+  action :pull
 end
